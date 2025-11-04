@@ -1,0 +1,35 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+const int maxv=0x3f3f3f3f;
+int main(){
+  int n,s;
+  cin>>n>>s;
+  vector<int> c;
+  vector<int> y;
+  for(int i=0;i<n;i++){
+    int a,b;
+    cin>>a>>b;
+    c.push_back(a);
+    y.push_back(b);
+  }
+  vector<int> cost;
+  cost.resize(n,0);
+  for(int i=0;i<n;i++){
+    if(i>0){
+      int t=i;
+      cost[i]=maxv;
+      while(t>=0){
+        cost[i]=min(cost[i],c[t]+(i-t)*s);
+        t--;
+      }
+    }else cost[i]=c[i];
+  }
+  long long total=0;
+  for(int i=0;i<n;i++){
+    total+=cost[i]*y[i];
+  }
+  cout<<total<<endl;
+  return 0;
+}
