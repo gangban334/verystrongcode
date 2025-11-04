@@ -1,0 +1,28 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<cmath>
+#include<cstdio>
+#include<queue>
+using namespace std;
+int main(){
+  int n;
+  cin>>n;
+  priority_queue<double> a;
+  for(int i=0;i<n;i++){
+    double c;
+    cin>>c;
+    a.push(c);
+  }
+  double minv=0;
+  for(int i=0;i<n-1;i++){
+    double x=a.top();
+    a.pop();
+    double m=2*sqrt(x*a.top());
+    a.pop();
+    a.push(m);
+  }
+  minv=a.top();
+  printf("%.3f\n",minv);
+  return 0;
+}
