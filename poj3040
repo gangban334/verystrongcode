@@ -1,0 +1,46 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+int main(){
+  int n,c;
+  cin>>n>>c;
+  vector<pair<int,int>> a;
+  vector<int> b;
+  b.resize(n,0);
+  for(int i=0;i<n;i++){
+    int v,b;
+    cin>>v>>b;
+    a.push_back(make_pair(v,b));
+  }
+  int ans=0;
+  sort(a.begin(),a.end(),greater<pair<int,int>>());
+  while(1){
+    int ss=c;
+    int tem=0x3f3f3f3f;
+    for(int i=0;i<n;i++){
+      b[i]=min(a[i].second,ss/a[i].first);
+      ss-=b[i]*a[i].first;
+    }
+    if(ss>0){
+      for(int i=n-1;i>=0;i--){
+        if(a[i].second>b[i]){
+          b[i]++;
+          ss-=a[i].first;
+          break;
+        }
+      }
+    }
+    if(ss>0) break;
+    for(int i=0;i<n;i++){
+      if(b[i]>0)
+      tem=min(tem,a[i].second/b[i]);//b[i]可能为0；
+    }
+    ans+=tem;
+    for(int i=0;i<n;i++){
+      a[i].second-=tem*b[i];
+    }
+  }
+  cout<<ans<<endl;
+  return 0;
+}
